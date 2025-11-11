@@ -1,16 +1,37 @@
-export function create(rows, cols) {
-    let grid = "";
+export default class game{
+    constructor(id,rows,cols){
+        this.id = id;
+        this.rows = rows;
+        this.cols = cols;
+        this.players = [];
+        this.turn = 0;
+        this.interval = null;
+        this.destination = this.getRandomEmptyPosition();
 
-    for (let i = 0; i < rows; i++) {
-        let row = "";
-        for (let j = 0; j < cols; j++) {
-            row += "- ";
-        }
-        grid += row + "\n";
     }
 
-    return grid;
-}
 
-// let result = create();
-// console.log(result);
+    static gameCounter = 1;
+
+    static create (rows,cols){
+        return new game(this.gameCounter++ , rows , cols);
+    }
+
+
+    getRandomEmptyPosition(){
+
+        const x = Math.floor(Math.random() * this.rows);
+        const y = Math.floor(Math.random() * this.cols);
+
+        return{x , y };
+    }
+
+    addPlayer(player){
+        const pos = this.getRandomEmptyPosition();
+        player.setPosition(pos.x, pos.y);
+        this.players.push(player);
+    }
+  } 
+
+
+
