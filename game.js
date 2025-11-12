@@ -31,7 +31,22 @@ export default class game{
         player.setPosition(pos.x, pos.y);
         this.players.push(player);
     }
+
+    render(){
+        const grid = Array.from({ length: this.rows }, () => Array(this.cols).fill("_"));
+         
+        for(const player of this.players){
+            if(player.isAlive) grid[player.x][player.y] = player.symbol;
+        }
+
+        grid[this.destination.x][this.destination.y] = "X";
+
+        console.log(`\nGame ${String(this.id).padStart(2, "0")} Turn ${String(this.turn).padStart(3, "0")}:`);
+        console.log("");
+        for(const row of grid) console.log(row.join(" "));
+    }
   } 
 
 
+       
 

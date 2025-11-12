@@ -5,7 +5,7 @@ export default class Player {
       this.symbol = symbol;
       this.x = null;
       this.y = null;
-      this.alive = true;
+      this.isAlive = true;
     }
 
     static create(){

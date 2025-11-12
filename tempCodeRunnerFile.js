@@ -20,4 +20,3 @@ game2.addPlayer(playerD);
 // game2.start();
 
 game1.render();
-game2.render();
