@@ -44,8 +44,28 @@ export default class game{
         console.log(`\nGame ${String(this.id).padStart(2, "0")} Turn ${String(this.turn).padStart(3, "0")}:`);
         console.log("");
         for(const row of grid) console.log(row.join(" "));
+        
     }
-  } 
+
+    checkCollisions() {
+    const seen = {};
+
+    for (const player of this.players) {
+    if (!player.isAlive) continue;
+
+    const posKey = `${player.x}-${player.y}`;
+
+    if (seen[posKey]) {
+    
+      player.isAlive = false;
+      seen[posKey].isAlive = false;
+    } else {
+      seen[posKey] = player;
+    }
+  }
+ }
+
+} 
 
 
        
