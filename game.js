@@ -65,7 +65,45 @@ export default class game{
   }
  }
 
-} 
+checkWinners() {
+  for (const player of this.players) {
+    const { x, y, isAlive, symbol } = player;
+    const { x: destX, y: destY } = this.destination;
+
+    if (isAlive && x === destX && y === destY) {
+      console.log(`\n🏆 Player ${symbol} wins Game ${this.id}!\n`);
+      return true; 
+    }
+  }
+
+  return false; 
+}
+
+advanceTurn() {
+    this.turn++;
+
+  this.players.forEach(player => {
+    if (player.isAlive) {
+      player.moveTowards(this.destination.x, this.destination.y, this.cols, this.rows);
+    }
+  });
+
+    this.checkCollisions();
+    this.render();
+
+    if (this.checkWinners()) {
+      clearInterval(this.interval);
+    }
+
+    // Remove dead players
+    this.players = this.players.filter(p => p.isAlive);
+  }
+
+   start(){
+    this.render();
+    this.interval = setInterval(() => this.advanceTurn(),5000)
+   }
+}
 
 
        
